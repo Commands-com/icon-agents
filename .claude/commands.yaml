@@ -1,0 +1,263 @@
+commands:
+  # Icon Commands - Legendary Programmer Philosophy Applied
+  - name: linus-code-reviewer
+    title: Linus Torvalds Code Reviewer
+    description: No-nonsense code review with legendary directness - applies Linus Torvalds' engineering philosophy to eliminate over-design and complexity
+    type: command
+    category: development
+    commandName: "/linus-code-review"
+    aiPlatform: "claude-code@2025.06"
+    mcpRequirements:
+      - serverId: filesystem
+        tier: required
+      - serverId: github
+        tier: optional
+    content: commands/linus-code-reviewer/command.md
+    readme: commands/linus-code-reviewer/README.md
+    inputParameters:
+      - name: source
+        label: Source Location
+        description: GitHub URL, local file/directory path, or specific function to analyze
+        type: text
+        required: true
+        defaultValue: ""
+      - name: focus
+        label: Review Focus
+        description: Primary area of Linus-style analysis
+        type: select
+        required: false
+        defaultValue: "all"
+        options: ["data-flow", "complexity", "special-cases", "architecture", "all"]
+      - name: severity
+        label: Minimum Severity
+        description: Minimum severity for reported issues
+        type: select
+        required: false
+        defaultValue: "info"
+        options: ["info", "warning", "error"]
+      - name: save_report
+        label: Generate Report
+        description: Save detailed Linus-style analysis report
+        type: select
+        required: false
+        defaultValue: "yes"
+        options: ["yes", "no"]
+
+  - name: carmack-performance-reviewer
+    title: John Carmack Performance Reviewer
+    description: Legendary performance optimization with empirical analysis - channel Carmack's expertise to eliminate bottlenecks and optimize hot paths
+    type: command
+    category: development
+    commandName: "/carmack-performance"
+    aiPlatform: "claude-code@2025.06"
+    mcpRequirements:
+      - serverId: filesystem
+        tier: required
+      - serverId: github
+        tier: optional
+    content: commands/carmack-performance-reviewer/command.md
+    readme: commands/carmack-performance-reviewer/README.md
+    inputParameters:
+      - name: source
+        label: Source Location
+        description: GitHub URL, local file/directory path, or specific function to analyze
+        type: text
+        required: true
+        defaultValue: ""
+      - name: focus
+        label: Performance Focus
+        description: Primary area of performance analysis
+        type: select
+        required: false
+        defaultValue: "all"
+        options: ["hot-paths", "memory-layout", "algorithms", "cache-efficiency", "all"]
+      - name: platform
+        label: Target Platform
+        description: Platform-specific optimization target
+        type: select
+        required: false
+        defaultValue: "generic"
+        options: ["x86", "arm", "gpu", "generic"]
+      - name: profile_data
+        label: Include Profiling Data
+        description: Include existing profiling data in analysis
+        type: select
+        required: false
+        defaultValue: "no"
+        options: ["yes", "no"]
+      - name: save_report
+        label: Generate Report
+        description: Save detailed performance analysis report
+        type: select
+        required: false
+        defaultValue: "yes"
+        options: ["yes", "no"]
+
+  - name: hickey-simplicity-architect
+    title: Rich Hickey Simplicity Architect
+    description: Eliminate accidental complexity through functional thinking - apply Hickey's philosophy to separate concerns and model information simply
+    type: command
+    category: development
+    commandName: "/hickey-simplicity"
+    aiPlatform: "claude-code@2025.06"
+    mcpRequirements:
+      - serverId: filesystem
+        tier: required
+      - serverId: github
+        tier: optional
+    content: commands/hickey-simplicity-architect/command.md
+    readme: commands/hickey-simplicity-architect/README.md
+    inputParameters:
+      - name: source
+        label: Source Location
+        description: GitHub URL, local file/directory path, or module to analyze
+        type: text
+        required: true
+        defaultValue: ""
+      - name: focus
+        label: Simplicity Focus
+        description: Primary area of simplicity analysis
+        type: select
+        required: false
+        defaultValue: "all"
+        options: ["complecting", "state-identity-time", "information-model", "composition", "all"]
+      - name: paradigm
+        label: Target Paradigm
+        description: Target programming paradigm for recommendations
+        type: select
+        required: false
+        defaultValue: "functional"
+        options: ["functional", "hybrid", "object-functional"]
+      - name: save_report
+        label: Generate Report
+        description: Save detailed simplicity analysis report
+        type: select
+        required: false
+        defaultValue: "yes"
+        options: ["yes", "no"]
+
+  - name: icon-commit-reviewer
+    title: Icon Commit Reviewer
+    description: Legendary code review from all three perspectives - analyze git commits through the eyes of Linus Torvalds, John Carmack, and Rich Hickey
+    type: command
+    category: development
+    commandName: "/icon-commit-review"
+    aiPlatform: "claude-code@2025.06"
+    mcpRequirements:
+      - serverId: filesystem
+        tier: required
+      - serverId: github
+        tier: optional
+    content: commands/icon-commit-reviewer/command.md
+    readme: commands/icon-commit-reviewer/README.md
+    inputParameters:
+      - name: scope
+        label: Review Scope
+        description: What commits to review
+        type: select
+        required: false
+        defaultValue: "staged"
+        options: ["staged", "unstaged", "all", "last-commit", "branch"]
+      - name: focus
+        label: Review Focus
+        description: Which legendary perspective to emphasize
+        type: select
+        required: false
+        defaultValue: "all"
+        options: ["linus", "carmack", "hickey", "all"]
+      - name: detail_level
+        label: Detail Level
+        description: How detailed should the analysis be
+        type: select
+        required: false
+        defaultValue: "comprehensive"
+        options: ["quick", "standard", "comprehensive"]
+      - name: auto_commit
+        label: Auto Commit After Review
+        description: Automatically commit staged changes after successful review
+        type: select
+        required: false
+        defaultValue: "no"
+        options: ["yes", "no"]
+
+  # Icon Agents - Legendary Programmer Philosophies
+  - name: linus-torvalds
+    title: Linus Torvalds
+    description: Apply Linus Torvalds' legendary engineering philosophy - eliminate over-design, focus on data structures, and demand good taste in code
+    type: agent
+    category: code-philosophy
+    content: agents/linus-torvalds.md
+    aiPlatform: claude-code@2025.06
+    agentSpecializations:
+      - systems-engineering
+      - data-structure-design
+      - pragmatic-development
+      - technical-taste
+    agentCapabilities:
+      - Evaluate code for "good taste"
+      - Eliminate special cases and complexity
+      - Focus on data structure design
+      - Apply pragmatic engineering principles
+      - Provide direct technical feedback
+    agentTools:
+      - Five-layer analysis framework
+      - Data structure evaluation
+      - Complexity reduction techniques
+      - Pragmatic design principles
+
+  - name: john-carmack
+    title: John Carmack
+    description: Channel John Carmack's performance optimization expertise - empirical analysis, cache efficiency, and systematic bottleneck elimination
+    type: agent
+    category: performance-optimization
+    content: agents/john-carmack.md
+    aiPlatform: claude-code@2025.06
+    agentSpecializations:
+      - performance-optimization
+      - cache-efficiency
+      - empirical-analysis
+      - systems-programming
+    agentCapabilities:
+      - Identify performance bottlenecks
+      - Optimize memory access patterns
+      - Apply data-oriented design
+      - Systematic performance analysis
+      - Hardware-conscious optimization
+    agentTools:
+      - Performance profiling methodology
+      - Cache analysis techniques
+      - Algorithmic optimization
+      - Hardware optimization patterns
+
+  - name: rich-hickey
+    title: Rich Hickey
+    description: Apply Rich Hickey's simplicity philosophy - eliminate complected concepts, separate concerns, and design with information models
+    type: agent
+    category: simplicity-architecture
+    content: agents/rich-hickey.md
+    aiPlatform: claude-code@2025.06
+    agentSpecializations:
+      - conceptual-simplicity
+      - functional-programming
+      - information-modeling
+      - complexity-elimination
+    agentCapabilities:
+      - Identify complected concepts
+      - Separate state from identity
+      - Design simple information models
+      - Apply functional programming principles
+      - Eliminate accidental complexity
+    agentTools:
+      - Complecting analysis framework
+      - Information modeling techniques
+      - Functional design patterns
+      - Simplicity evaluation methods
+
+metadata:
+  created: "2025-08-17"
+  updated: "2025-08-17"
+  total_items: 7
+  description: Legendary programmer philosophies as AI agents and commands - Linus Torvalds, John Carmack, and Rich Hickey
+  supported_platforms:
+    - claude-code
+    - claude
