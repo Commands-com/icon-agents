@@ -1,0 +1,30 @@
+# Performance benchmark results
+performance_results/
+
+# Response cache files (but keep cache documentation)
+.claude/cache/
+*.cache
+
+# MCP server data
+.serena/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
