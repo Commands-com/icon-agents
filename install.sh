@@ -2,10 +2,15 @@
 
 # Install script for Icon Agents - Pod-based Architecture
 # Allows users to install specific pods or all pods
-# Usage: ./install.sh
+# Usage: ./install.sh (from repo) or curl ... | bash (remote)
 # Interactive script that prompts for installation directory and pod selection
 
 set -e
+
+# GitHub repository details
+GITHUB_REPO="Commands-com/icon-agents"
+GITHUB_BRANCH="main"
+RAW_BASE_URL="https://raw.githubusercontent.com/${GITHUB_REPO}/refs/heads/${GITHUB_BRANCH}"
 
 # Colors for output
 RED='\033[0;31m'
@@ -122,40 +127,129 @@ esac
 
 echo ""
 
+# Function to download file from GitHub
+download_file() {
+    local source_path="$1"
+    local target_path="$2"
+    local url="${RAW_BASE_URL}/${source_path}"
+    
+    if curl -fsSL "$url" -o "$target_path" 2>/dev/null; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Detect if we're running from repo or downloaded via curl
+if [ -f "commands/icon-review.md" ]; then
+    INSTALL_MODE="local"
+    echo -e "${BLUE}📁 Running from local repository${NC}"
+else
+    INSTALL_MODE="remote"
+    echo -e "${BLUE}📁 Running remote installation${NC}"
+fi
+
 # Create Claude directories if they don't exist
 echo -e "${BLUE}📁 Creating directories...${NC}"
 mkdir -p "$CLAUDE_DIR/agents"
 mkdir -p "$CLAUDE_DIR/commands"
 
-# Install main command (root level)
+# Install main command
 echo -e "${YELLOW}📦 Installing main command...${NC}"
-if [ -f "commands/icon-review.md" ]; then
-    cp "commands/icon-review.md" "$CLAUDE_DIR/commands/icon-review.md"
-    echo -e "${GREEN}  ✓ Installed main command: icon-review.md${NC}"
+if [ "$INSTALL_MODE" = "local" ]; then
+    if [ -f "commands/icon-review.md" ]; then
+        cp "commands/icon-review.md" "$CLAUDE_DIR/commands/icon-review.md"
+        echo -e "${GREEN}  ✓ Installed main command: icon-review.md${NC}"
+    else
+        echo -e "${RED}  ✗ commands/icon-review.md not found${NC}"
+    fi
 else
-    echo -e "${RED}  ✗ commands/icon-review.md not found${NC}"
+    if download_file "commands/icon-review.md" "$CLAUDE_DIR/commands/icon-review.md"; then
+        echo -e "${GREEN}  ✓ Downloaded main command: icon-review.md${NC}"
+    else
+        echo -e "${RED}  ✗ Failed to download main command${NC}"
+    fi
 fi
+
+# Function to get agent list for a pod from GitHub API
+get_pod_agents() {
+    local pod="$1"
+    # For simplicity, we'll use a predefined list since we know the structure
+    # This avoids needing to call GitHub API
+    case "$pod" in
+        "programming")
+            echo "linus-torvalds.md john-carmack.md rich-hickey.md alan-kay.md kent-beck.md barbara-liskov.md leslie-lamport.md donald-knuth.md"
+            ;;
+        "security")
+            echo "dan-kaminsky.md katie-moussouris.md bruce-schneier.md mikko-hypponen.md tarah-wheeler.md mudge-zatko.md eva-galperin.md moxie-marlinspike.md"
+            ;;
+        "design")
+            echo "dieter-rams.md don-norman.md edward-tufte.md jonathan-ive.md susan-kare.md jakob-nielsen.md kat-holmes.md lou-downe.md"
+            ;;
+        "business")
+            echo "clayton-christensen.md michael-porter.md eric-ries.md steve-jobs.md jeff-bezos.md satya-nadella.md reid-hoffman.md elon-musk.md"
+            ;;
+        "data-ai")
+            echo "andrew-ng.md fei-fei-li.md geoffrey-hinton.md hilary-mason.md yann-lecun.md cassie-kozyrkov.md dj-patil.md demis-hassabis.md"
+            ;;
+        "product-policy")
+            echo "marty-cagan.md gene-kim.md joanna-bryson.md michelle-zatlyn.md julie-zhuo.md ben-horowitz.md tristan-harris.md cathy-oneil.md"
+            ;;
+        "platform-operations")
+            echo "tim-berners-lee.md vint-cerf.md radia-perlman.md werner-vogels.md martin-fowler.md brendan-gregg.md kelsey-hightower.md jessie-frazelle.md"
+            ;;
+        *)
+            echo ""
+            ;;
+    esac
+}
 
 # Install selected pods
 for pod in "${SELECTED_PODS[@]}"; do
     echo -e "${YELLOW}📦 Installing $pod pod...${NC}"
     
-    # Install agents for this pod (flatten to agents/ directory)
-    if [ -d "agents/$pod" ]; then
-        cp -r agents/$pod/* "$CLAUDE_DIR/agents/"
-        agent_count=$(find "agents/$pod" -name "*.md" | wc -l)
-        echo -e "${GREEN}  ✓ Installed $agent_count agents to $CLAUDE_DIR/agents/${NC}"
+    if [ "$INSTALL_MODE" = "local" ]; then
+        # Local installation (from repo)
+        if [ -d "agents/$pod" ]; then
+            cp -r agents/$pod/* "$CLAUDE_DIR/agents/"
+            agent_count=$(find "agents/$pod" -name "*.md" | wc -l)
+            echo -e "${GREEN}  ✓ Installed $agent_count agents to $CLAUDE_DIR/agents/${NC}"
+        else
+            echo -e "${RED}  ✗ agents/$pod directory not found${NC}"
+        fi
+        
+        # Install pod-specific command
+        pod_cmd="icon-$pod-review"
+        if [ -f "commands/$pod/$pod_cmd.md" ]; then
+            cp "commands/$pod/$pod_cmd.md" "$CLAUDE_DIR/commands/$pod_cmd.md"
+            echo -e "${GREEN}  ✓ Installed pod command: $pod_cmd.md${NC}"
+        else
+            echo -e "${RED}  ✗ commands/$pod/$pod_cmd.md not found${NC}"
+        fi
     else
-        echo -e "${RED}  ✗ agents/$pod directory not found${NC}"
-    fi
-    
-    # Install pod-specific command
-    pod_cmd="icon-$pod-review"
-    if [ -f "commands/$pod/$pod_cmd.md" ]; then
-        cp "commands/$pod/$pod_cmd.md" "$CLAUDE_DIR/commands/$pod_cmd.md"
-        echo -e "${GREEN}  ✓ Installed pod command: $pod_cmd.md${NC}"
-    else
-        echo -e "${RED}  ✗ commands/$pod/$pod_cmd.md not found${NC}"
+        # Remote installation (download from GitHub)
+        agent_files=$(get_pod_agents "$pod")
+        agent_count=0
+        
+        for agent_file in $agent_files; do
+            if download_file "agents/$pod/$agent_file" "$CLAUDE_DIR/agents/$agent_file"; then
+                agent_count=$((agent_count + 1))
+            fi
+        done
+        
+        if [ $agent_count -gt 0 ]; then
+            echo -e "${GREEN}  ✓ Downloaded $agent_count agents to $CLAUDE_DIR/agents/${NC}"
+        else
+            echo -e "${RED}  ✗ Failed to download agents for $pod${NC}"
+        fi
+        
+        # Download pod-specific command
+        pod_cmd="icon-$pod-review"
+        if download_file "commands/$pod/$pod_cmd.md" "$CLAUDE_DIR/commands/$pod_cmd.md"; then
+            echo -e "${GREEN}  ✓ Downloaded pod command: $pod_cmd.md${NC}"
+        else
+            echo -e "${RED}  ✗ Failed to download commands/$pod/$pod_cmd.md${NC}"
+        fi
     fi
 done
 
@@ -181,7 +275,11 @@ done
 echo ""
 echo -e "${YELLOW}💡 Next steps:${NC}"
 echo "1. Restart Claude Code to load the new agents and commands"
-echo "2. Use /icon-expert-review or /icon-commit-review to get started"
-echo "3. Check the README files for detailed usage instructions"
+echo "2. Use /icon-review for multi-domain analysis or pod-specific shortcuts:"
+echo "   • /icon-programming-review - Code analysis with 8 legendary programmers"
+echo "   • /icon-security-review - Security analysis with 8 security experts"
+echo "   • /icon-design-review - Design analysis with 8 design masters"
+echo "   • And more pod-specific commands for your installed pods"
+echo "3. All 56 expert agents are now available as individual Task agents"
 echo ""
-echo -e "${CYAN}Happy coding with legendary wisdom! 🚀${NC}"
+echo -e "${CYAN}Happy coding with legendary wisdom across all domains! 🚀${NC}"

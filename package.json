@@ -1,0 +1,49 @@
+{
+  "name": "icon-agents",
+  "version": "1.0.0",
+  "description": "Legendary programming wisdom at your fingertips - 56 expert agents across 7 domains for Claude Code",
+  "main": "cli.js",
+  "bin": {
+    "icon-agents": "./cli.js"
+  },
+  "scripts": {
+    "install-local": "./install.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "preferGlobal": false,
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": [
+    "claude-code",
+    "ai-agents",
+    "code-review",
+    "programming",
+    "expert-systems",
+    "linus-torvalds",
+    "john-carmack",
+    "rich-hickey",
+    "legendary-programmers",
+    "intelligent-analysis"
+  ],
+  "author": "Icon Agents",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Commands-com/icon-agents.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Commands-com/icon-agents/issues"
+  },
+  "homepage": "https://github.com/Commands-com/icon-agents#readme",
+  "files": [
+    "cli.js",
+    "install.sh",
+    "agents/**/*",
+    "commands/**/*",
+    "commands.yaml",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {}
+}
