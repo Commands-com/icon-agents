@@ -208,7 +208,10 @@ The interactive installer will ask you:
 To remove Icon Agents from your project:
 
 ```bash
-# Run the uninstall script
+# NPX (recommended)
+npx icon-agents uninstall
+
+# Run the uninstall script directly
 ./uninstall.sh
 
 # Or if downloaded separately

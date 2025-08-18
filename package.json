@@ -1,10 +1,10 @@
 {
   "name": "icon-agents",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Legendary programming wisdom at your fingertips - 56 expert agents across 7 domains for Claude Code",
   "main": "cli.js",
   "bin": {
-    "icon-agents": "./cli.js"
+    "icon-agents": "cli.js"
   },
   "scripts": {
     "install-local": "./install.sh",
@@ -30,7 +30,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Commands-com/icon-agents.git"
+    "url": "git+https://github.com/Commands-com/icon-agents.git"
   },
   "bugs": {
     "url": "https://github.com/Commands-com/icon-agents/issues"
@@ -39,6 +39,7 @@
   "files": [
     "cli.js",
     "install.sh",
+    "uninstall.sh",
     "agents/**/*",
     "commands/**/*",
     "commands.yaml",
