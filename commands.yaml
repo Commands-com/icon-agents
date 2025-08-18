@@ -1,20 +1,51 @@
 commands:
-  # Icon Commands - Intelligent Legendary Programming Wisdom
+  # Main Icon Command - Multi-Domain Analysis
 
-  - name: icon-expert-review
-    title: Icon Expert Review
-    description: Hybrid expert analysis - automatically selects relevant legendary programmers or use direct expert selection. Shows selection reasoning and allows overrides.
+  - name: icon-review
+    title: Icon Review
+    description: Intelligent multi-domain analysis that automatically selects the most relevant legendary experts across all 7 domains based on your project
     type: command
     category: development
-    commandName: "/icon-expert-review"
+    commandName: "/icon-review"
     aiPlatform: "claude-code@2025.06"
     mcpRequirements:
       - serverId: filesystem
         tier: required
       - serverId: github
         tier: optional
-    content: commands/icon-expert-review/command.md
-    readme: commands/icon-expert-review/README.md
+    content: commands/icon-review.md
+    readme: commands/README.md
+    inputParameters:
+      - name: source
+        label: Source Location
+        description: GitHub URL, local file/directory path, or project description
+        type: text
+        required: false
+        defaultValue: ""
+      - name: focus
+        label: Focus Areas
+        description: Specify focus domains or let AI auto-select
+        type: select
+        required: false
+        defaultValue: "auto"
+        options: ["auto", "programming", "security", "design", "business", "data-ai", "product-policy", "platform-operations", "all"]
+
+  # Pod-Specific Commands
+
+  - name: icon-programming-review
+    title: Icon Programming Review
+    description: Intelligent programming analysis that automatically selects the most relevant legendary programmers for your code
+    type: command
+    category: development
+    commandName: "/icon-programming-review"
+    aiPlatform: "claude-code@2025.06"
+    mcpRequirements:
+      - serverId: filesystem
+        tier: required
+      - serverId: github
+        tier: optional
+    content: commands/programming/icon-programming-review.md
+    readme: commands/programming/README.md
     inputParameters:
       - name: source
         label: Source Location
@@ -37,6 +68,60 @@ commands:
         defaultValue: "auto"
         options: ["auto", "linus-torvalds", "john-carmack", "rich-hickey", "alan-kay", "kent-beck", "barbara-liskov", "leslie-lamport", "donald-knuth"]
 
+  - name: icon-security-review
+    title: Icon Security Review
+    description: Intelligent security analysis that automatically selects the most relevant legendary security experts
+    type: command
+    category: security
+    commandName: "/icon-security-review"
+    aiPlatform: "claude-code@2025.06"
+    content: commands/security/icon-security-review.md
+
+  - name: icon-design-review
+    title: Icon Design Review
+    description: Intelligent design analysis that automatically selects the most relevant legendary design experts
+    type: command
+    category: design
+    commandName: "/icon-design-review"
+    aiPlatform: "claude-code@2025.06"
+    content: commands/design/icon-design-review.md
+
+  - name: icon-business-review
+    title: Icon Business Review
+    description: Intelligent business analysis that automatically selects the most relevant legendary business strategists
+    type: command
+    category: business
+    commandName: "/icon-business-review"
+    aiPlatform: "claude-code@2025.06"
+    content: commands/business/icon-business-review.md
+
+  - name: icon-data-ai-review
+    title: Icon Data & AI Review
+    description: Intelligent AI/ML analysis that automatically selects the most relevant legendary data science and AI experts
+    type: command
+    category: data-ai
+    commandName: "/icon-data-ai-review"
+    aiPlatform: "claude-code@2025.06"
+    content: commands/data-ai/icon-data-ai-review.md
+
+  - name: icon-product-policy-review
+    title: Icon Product & Policy Review
+    description: Intelligent product and policy analysis that automatically selects the most relevant legendary experts
+    type: command
+    category: product-policy
+    commandName: "/icon-product-policy-review"
+    aiPlatform: "claude-code@2025.06"
+    content: commands/product-policy/icon-product-policy-review.md
+
+  - name: icon-platform-operations-review
+    title: Icon Platform & Operations Review
+    description: Intelligent platform and operations analysis that automatically selects the most relevant legendary infrastructure experts
+    type: command
+    category: platform-operations
+    commandName: "/icon-platform-operations-review"
+    aiPlatform: "claude-code@2025.06"
+    content: commands/platform-operations/icon-platform-operations-review.md
+
   - name: icon-commit-reviewer
     title: Icon Commit Reviewer
     description: Hybrid commit analysis - automatically selects relevant experts based on git changes or use direct expert selection. Shows selection reasoning and allows overrides.
@@ -49,8 +134,8 @@ commands:
         tier: required
       - serverId: github
         tier: optional
-    content: commands/icon-commit-reviewer/command.md
-    readme: commands/icon-commit-reviewer/README.md
+    content: commands/programming/icon-commit-reviewer/command.md
+    readme: commands/programming/icon-commit-reviewer/README.md
     inputParameters:
       - name: scope
         label: Review Scope
@@ -74,205 +159,477 @@ commands:
         defaultValue: "auto"
         options: ["auto", "linus-torvalds", "john-carmack", "rich-hickey", "alan-kay", "kent-beck", "barbara-liskov", "leslie-lamport", "donald-knuth"]
 
-  # Icon Agents - Legendary Programmer Philosophies
+  # Icon Agents - All 7 Pods (56 Legendary Experts)
+
+  # Programming Pod (8 experts)
   - name: linus-torvalds
     title: Linus Torvalds
     description: Apply Linus Torvalds' legendary engineering philosophy - eliminate over-design, focus on data structures, and demand good taste in code
     type: agent
-    category: code-philosophy
-    content: agents/linus-torvalds.md
+    category: development
+    content: agents/programming/linus-torvalds.md
     aiPlatform: claude-code@2025.06
-    agentSpecializations:
-      - systems-engineering
-      - data-structure-design
-      - pragmatic-development
-      - technical-taste
-    agentCapabilities:
-      - Evaluate code for "good taste"
-      - Eliminate special cases and complexity
-      - Focus on data structure design
-      - Apply pragmatic engineering principles
-      - Provide direct technical feedback
-    agentTools:
-      - Five-layer analysis framework
-      - Data structure evaluation
-      - Complexity reduction techniques
-      - Pragmatic design principles
 
   - name: john-carmack
     title: John Carmack
     description: Channel John Carmack's performance optimization expertise - empirical analysis, cache efficiency, and systematic bottleneck elimination
     type: agent
     category: performance-optimization
-    content: agents/john-carmack.md
+    content: agents/programming/john-carmack.md
     aiPlatform: claude-code@2025.06
-    agentSpecializations:
-      - performance-optimization
-      - cache-efficiency
-      - empirical-analysis
-      - systems-programming
-    agentCapabilities:
-      - Identify performance bottlenecks
-      - Optimize memory access patterns
-      - Apply data-oriented design
-      - Systematic performance analysis
-      - Hardware-conscious optimization
-    agentTools:
-      - Performance profiling methodology
-      - Cache analysis techniques
-      - Algorithmic optimization
-      - Hardware optimization patterns
 
   - name: rich-hickey
     title: Rich Hickey
     description: Apply Rich Hickey's simplicity philosophy - eliminate complected concepts, separate concerns, and design with information models
     type: agent
-    category: simplicity-architecture
-    content: agents/rich-hickey.md
+    category: architecture
+    content: agents/programming/rich-hickey.md
     aiPlatform: claude-code@2025.06
-    agentSpecializations:
-      - conceptual-simplicity
-      - functional-programming
-      - information-modeling
-      - complexity-elimination
-    agentCapabilities:
-      - Identify complected concepts
-      - Separate state from identity
-      - Design simple information models
-      - Apply functional programming principles
-      - Eliminate accidental complexity
-    agentTools:
-      - Complecting analysis framework
-      - Information modeling techniques
-      - Functional design patterns
-      - Simplicity evaluation methods
 
   - name: donald-knuth
     title: Donald Knuth
     description: Apply Donald Knuth's algorithmic wisdom - mathematical rigor, complexity analysis, and literate programming principles
     type: agent
-    category: algorithmic-analysis
-    content: agents/donald-knuth.md
+    category: development
+    content: agents/programming/donald-knuth.md
     aiPlatform: claude-code@2025.06
-    agentSpecializations:
-      - algorithmic-analysis
-      - complexity-theory
-      - mathematical-rigor
-      - literate-programming
-    agentCapabilities:
-      - Analyze algorithmic complexity
-      - Verify correctness mathematically
-      - Apply literate programming principles
-      - Optimize algorithm selection
-      - Provide mathematical insights
-    agentTools:
-      - Big-O analysis framework
-      - Correctness verification methods
-      - Algorithm comparison techniques
-      - Mathematical optimization
 
-  - name: alan-kay
-    title: Alan Kay
-    description: Channel Alan Kay's visionary thinking - message-passing objects, system evolution, and human-centered design
+  - name: brendan-eich
+    title: Brendan Eich
+    description: Apply Brendan Eich's web platform expertise - JavaScript innovation, browser architecture, and open web technologies
     type: agent
-    category: system-vision
-    content: agents/alan-kay.md
+    category: development
+    content: agents/programming/brendan-eich.md
     aiPlatform: claude-code@2025.06
-    agentSpecializations:
-      - object-oriented-design
-      - system-evolution
-      - human-computer-interaction
-      - visionary-thinking
-    agentCapabilities:
-      - Design evolutionary systems
-      - Apply true object-oriented principles
-      - Create human-centered interfaces
-      - Think in decades, not quarters
-      - Enable emergent behaviors
-    agentTools:
-      - Message-passing design patterns
-      - Evolution-friendly architectures
-      - Human-centered design principles
-      - Long-term thinking frameworks
 
   - name: kent-beck
     title: Kent Beck
     description: Apply Kent Beck's development practices - test-driven development, refactoring, and feedback-driven design
     type: agent
-    category: development-practices
-    content: agents/kent-beck.md
+    category: development
+    content: agents/programming/kent-beck.md
     aiPlatform: claude-code@2025.06
-    agentSpecializations:
-      - test-driven-development
-      - refactoring-techniques
-      - agile-practices
-      - feedback-loops
-    agentCapabilities:
-      - Design testable code
-      - Apply refactoring patterns
-      - Implement feedback loops
-      - Practice incremental design
-      - Balance simplicity and functionality
-    agentTools:
-      - TDD methodology
-      - Refactoring catalog
-      - Feedback optimization techniques
-      - Incremental design patterns
 
   - name: leslie-lamport
     title: Leslie Lamport
     description: Apply Leslie Lamport's formal methods - distributed systems correctness, temporal logic, and rigorous specification
     type: agent
-    category: formal-methods
-    content: agents/leslie-lamport.md
+    category: development
+    content: agents/programming/leslie-lamport.md
     aiPlatform: claude-code@2025.06
-    agentSpecializations:
-      - distributed-systems
-      - formal-verification
-      - temporal-logic
-      - specification-design
-    agentCapabilities:
-      - Verify distributed system correctness
-      - Apply formal specification methods
-      - Analyze concurrency properties
-      - Design fault-tolerant systems
-      - Prove system properties
-    agentTools:
-      - TLA+ specification framework
-      - Distributed algorithm patterns
-      - Formal verification techniques
-      - Concurrency analysis methods
 
   - name: barbara-liskov
     title: Barbara Liskov
     description: Apply Barbara Liskov's abstraction principles - data abstraction, contract design, and substitutability
     type: agent
-    category: abstraction-design
-    content: agents/barbara-liskov.md
+    category: development
+    content: agents/programming/barbara-liskov.md
     aiPlatform: claude-code@2025.06
-    agentSpecializations:
-      - data-abstraction
-      - contract-design
-      - type-systems
-      - modular-programming
-    agentCapabilities:
-      - Design robust abstractions
-      - Verify substitutability principles
-      - Create clear contracts
-      - Apply type safety principles
-      - Build modular systems
-    agentTools:
-      - Abstraction design patterns
-      - Contract specification methods
-      - Substitutability verification
-      - Type safety analysis
+
+  # Data & AI Pod (8 experts)
+  - name: andrew-ng
+    title: Andrew Ng
+    description: Apply Andrew Ng's practical AI education philosophy - accessible machine learning, systematic implementation, and democratized AI education
+    type: agent
+    category: data-ai
+    content: agents/data-ai/andrew-ng.md
+    aiPlatform: claude-code@2025.06
+
+  - name: fei-fei-li
+    title: Fei-Fei Li
+    description: Channel Fei-Fei Li's computer vision expertise - human-centered AI, visual intelligence, and ethical AI development
+    type: agent
+    category: data-ai
+    content: agents/data-ai/fei-fei-li.md
+    aiPlatform: claude-code@2025.06
+
+  - name: geoffrey-hinton
+    title: Geoffrey Hinton
+    description: Apply Geoffrey Hinton's deep learning principles - neural network theory, backpropagation, and fundamental AI research
+    type: agent
+    category: data-ai
+    content: agents/data-ai/geoffrey-hinton.md
+    aiPlatform: claude-code@2025.06
+
+  - name: hilary-mason
+    title: Hilary Mason
+    description: Channel Hilary Mason's data strategy expertise - practical data science, business applications, and data-driven decision making
+    type: agent
+    category: data-ai
+    content: agents/data-ai/hilary-mason.md
+    aiPlatform: claude-code@2025.06
+
+  - name: yann-lecun
+    title: Yann LeCun
+    description: Apply Yann LeCun's convolutional network expertise - computer vision, self-supervised learning, and efficient AI architectures
+    type: agent
+    category: data-ai
+    content: agents/data-ai/yann-lecun.md
+    aiPlatform: claude-code@2025.06
+
+  - name: cassie-kozyrkov
+    title: Cassie Kozyrkov
+    description: Channel Cassie Kozyrkov's decision science philosophy - statistical thinking, AI safety, and practical analytics
+    type: agent
+    category: data-ai
+    content: agents/data-ai/cassie-kozyrkov.md
+    aiPlatform: claude-code@2025.06
+
+  - name: dj-patil
+    title: DJ Patil
+    description: Apply DJ Patil's data science leadership - team building, social impact, and scaling data science organizations
+    type: agent
+    category: data-ai
+    content: agents/data-ai/dj-patil.md
+    aiPlatform: claude-code@2025.06
+
+  - name: demis-hassabis
+    title: Demis Hassabis
+    description: Apply Demis Hassabis's AGI research expertise - artificial general intelligence, neuroscience-inspired AI, and scientific discovery
+    type: agent
+    category: data-ai
+    content: agents/data-ai/demis-hassabis.md
+    aiPlatform: claude-code@2025.06
+
+  # Product & Policy Pod (8 experts)
+  - name: marty-cagan
+    title: Marty Cagan
+    description: Apply Marty Cagan's product management philosophy - continuous discovery, customer-centric development, and outcome-driven teams
+    type: agent
+    category: product-policy
+    content: agents/product-policy/marty-cagan.md
+    aiPlatform: claude-code@2025.06
+
+  - name: gene-kim
+    title: Gene Kim
+    description: Channel Gene Kim's DevOps expertise - systems thinking, flow optimization, and organizational transformation
+    type: agent
+    category: product-policy
+    content: agents/product-policy/gene-kim.md
+    aiPlatform: claude-code@2025.06
+
+  - name: joanna-bryson
+    title: Joanna Bryson
+    description: Apply Joanna Bryson's AI governance expertise - algorithmic accountability, policy frameworks, and ethical AI development
+    type: agent
+    category: product-policy
+    content: agents/product-policy/joanna-bryson.md
+    aiPlatform: claude-code@2025.06
+
+  - name: michelle-zatlyn
+    title: Michelle Zatlyn
+    description: Channel Michelle Zatlyn's scaling expertise - infrastructure growth, operational excellence, and startup to enterprise transformation
+    type: agent
+    category: product-policy
+    content: agents/product-policy/michelle-zatlyn.md
+    aiPlatform: claude-code@2025.06
+
+  - name: julie-zhuo
+    title: Julie Zhuo
+    description: Apply Julie Zhuo's design leadership philosophy - user experience strategy, team building, and design systems thinking
+    type: agent
+    category: product-policy
+    content: agents/product-policy/julie-zhuo.md
+    aiPlatform: claude-code@2025.06
+
+  - name: ben-horowitz
+    title: Ben Horowitz
+    description: Channel Ben Horowitz's crisis leadership expertise - organizational culture, decision making under pressure, and company building
+    type: agent
+    category: product-policy
+    content: agents/product-policy/ben-horowitz.md
+    aiPlatform: claude-code@2025.06
+
+  - name: tristan-harris
+    title: Tristan Harris
+    description: Apply Tristan Harris's humane technology philosophy - attention economy ethics, technology design responsibility, and social impact
+    type: agent
+    category: product-policy
+    content: agents/product-policy/tristan-harris.md
+    aiPlatform: claude-code@2025.06
+
+  - name: cathy-oneil
+    title: Cathy O'Neil
+    description: Channel Cathy O'Neil's algorithmic accountability expertise - bias detection, fairness in AI, and mathematical ethics
+    type: agent
+    category: product-policy
+    content: agents/product-policy/cathy-oneil.md
+    aiPlatform: claude-code@2025.06
+
+  # Business Pod (8 experts)
+  - name: clayton-christensen
+    title: Clayton Christensen
+    description: Apply Clayton Christensen's disruptive innovation theory - market analysis, innovation strategy, and competitive dynamics
+    type: agent
+    category: business
+    content: agents/business/clayton-christensen.md
+    aiPlatform: claude-code@2025.06
+
+  - name: michael-porter
+    title: Michael Porter
+    description: Channel Michael Porter's competitive strategy expertise - Five Forces analysis, value chain optimization, and strategic positioning
+    type: agent
+    category: business
+    content: agents/business/michael-porter.md
+    aiPlatform: claude-code@2025.06
+
+  - name: eric-ries
+    title: Eric Ries
+    description: Apply Eric Ries's lean startup methodology - build-measure-learn cycles, validated learning, and iterative development
+    type: agent
+    category: business
+    content: agents/business/eric-ries.md
+    aiPlatform: claude-code@2025.06
+
+  - name: steve-jobs
+    title: Steve Jobs
+    description: Channel Steve Jobs's product vision - design excellence, user experience obsession, and market-creating innovation
+    type: agent
+    category: business
+    content: agents/business/steve-jobs.md
+    aiPlatform: claude-code@2025.06
+
+  - name: jeff-bezos
+    title: Jeff Bezos
+    description: Apply Jeff Bezos's customer obsession - long-term thinking, operational excellence, and scale-driven innovation
+    type: agent
+    category: business
+    content: agents/business/jeff-bezos.md
+    aiPlatform: claude-code@2025.06
+
+  - name: satya-nadella
+    title: Satya Nadella
+    description: Apply Satya Nadella's transformation leadership - growth mindset, digital transformation, and inclusive culture building
+    type: agent
+    category: business
+    content: agents/business/satya-nadella.md
+    aiPlatform: claude-code@2025.06
+
+  - name: reid-hoffman
+    title: Reid Hoffman
+    description: Apply Reid Hoffman's network effects expertise - platform strategy, ecosystem building, and venture scaling
+    type: agent
+    category: business
+    content: agents/business/reid-hoffman.md
+    aiPlatform: claude-code@2025.06
+
+  - name: elon-musk
+    title: Elon Musk
+    description: Channel Elon Musk's first principles thinking - vertical integration, manufacturing innovation, and breakthrough engineering
+    type: agent
+    category: business
+    content: agents/business/elon-musk.md
+    aiPlatform: claude-code@2025.06
+
+  # Design Pod (8 experts)
+  - name: dieter-rams
+    title: Dieter Rams
+    description: Apply Dieter Rams's design principles - minimalist functionality, timeless aesthetics, and sustainable design thinking
+    type: agent
+    category: design
+    content: agents/design/dieter-rams.md
+    aiPlatform: claude-code@2025.06
+
+  - name: don-norman
+    title: Don Norman
+    description: Channel Don Norman's human-centered design expertise - usability principles, cognitive psychology, and design psychology
+    type: agent
+    category: design
+    content: agents/design/don-norman.md
+    aiPlatform: claude-code@2025.06
+
+  - name: edward-tufte
+    title: Edward Tufte
+    description: Apply Edward Tufte's information design mastery - data visualization excellence, clarity in communication, and analytical graphics
+    type: agent
+    category: design
+    content: agents/design/edward-tufte.md
+    aiPlatform: claude-code@2025.06
+
+  - name: jonathan-ive
+    title: Jonathan Ive
+    description: Channel Jonathan Ive's industrial design philosophy - material innovation, craftsmanship excellence, and integrated design thinking
+    type: agent
+    category: design
+    content: agents/design/jonathan-ive.md
+    aiPlatform: claude-code@2025.06
+
+  - name: susan-kare
+    title: Susan Kare
+    description: Apply Susan Kare's icon design expertise - visual communication clarity, pixel-perfect craft, and interface symbolism
+    type: agent
+    category: design
+    content: agents/design/susan-kare.md
+    aiPlatform: claude-code@2025.06
+
+  - name: jakob-nielsen
+    title: Jakob Nielsen
+    description: Channel Jakob Nielsen's usability engineering expertise - heuristic evaluation, user testing methodology, and interface optimization
+    type: agent
+    category: design
+    content: agents/design/jakob-nielsen.md
+    aiPlatform: claude-code@2025.06
+
+  - name: kat-holmes
+    title: Kat Holmes
+    description: Apply Kat Holmes's inclusive design philosophy - accessibility excellence, universal design principles, and barrier elimination
+    type: agent
+    category: design
+    content: agents/design/kat-holmes.md
+    aiPlatform: claude-code@2025.06
+
+  - name: lou-downe
+    title: Lou Downe
+    description: Channel Lou Downe's service design expertise - end-to-end user experiences, service journey optimization, and holistic design thinking
+    type: agent
+    category: design
+    content: agents/design/lou-downe.md
+    aiPlatform: claude-code@2025.06
+
+  # Platform & Operations Pod (8 experts)
+  - name: tim-berners-lee
+    title: Tim Berners-Lee
+    description: Apply Tim Berners-Lee's web architecture philosophy - open standards, decentralization, and universal access principles
+    type: agent
+    category: platform-operations
+    content: agents/platform-operations/tim-berners-lee.md
+    aiPlatform: claude-code@2025.06
+
+  - name: vint-cerf
+    title: Vint Cerf
+    description: Channel Vint Cerf's internet protocol expertise - end-to-end connectivity, robustness principles, and global networking architecture
+    type: agent
+    category: platform-operations
+    content: agents/platform-operations/vint-cerf.md
+    aiPlatform: claude-code@2025.06
+
+  - name: radia-perlman
+    title: Radia Perlman
+    description: Apply Radia Perlman's network engineering expertise - fault tolerance, self-healing networks, and distributed systems robustness
+    type: agent
+    category: platform-operations
+    content: agents/platform-operations/radia-perlman.md
+    aiPlatform: claude-code@2025.06
+
+  - name: werner-vogels
+    title: Werner Vogels
+    description: Channel Werner Vogels's cloud architecture expertise - distributed systems, eventual consistency, and internet-scale service design
+    type: agent
+    category: platform-operations
+    content: agents/platform-operations/werner-vogels.md
+    aiPlatform: claude-code@2025.06
+
+  - name: martin-fowler
+    title: Martin Fowler
+    description: Apply Martin Fowler's enterprise architecture expertise - evolutionary design, refactoring practices, and microservices architecture
+    type: agent
+    category: platform-operations
+    content: agents/platform-operations/martin-fowler.md
+    aiPlatform: claude-code@2025.06
+
+  - name: brendan-gregg
+    title: Brendan Gregg
+    description: Channel Brendan Gregg's performance engineering expertise - systems observability, performance analysis, and methodical optimization
+    type: agent
+    category: platform-operations
+    content: agents/platform-operations/brendan-gregg.md
+    aiPlatform: claude-code@2025.06
+
+  - name: kelsey-hightower
+    title: Kelsey Hightower
+    description: Apply Kelsey Hightower's cloud native expertise - Kubernetes mastery, developer experience, and practical cloud adoption
+    type: agent
+    category: platform-operations
+    content: agents/platform-operations/kelsey-hightower.md
+    aiPlatform: claude-code@2025.06
+
+  - name: jessie-frazelle
+    title: Jessie Frazelle
+    description: Channel Jessie Frazelle's systems security expertise - container security, kernel internals, and secure systems engineering
+    type: agent
+    category: platform-operations
+    content: agents/platform-operations/jessie-frazelle.md
+    aiPlatform: claude-code@2025.06
+
+  # Security Pod (8 experts)
+  - name: dan-kaminsky
+    title: Dan Kaminsky
+    description: Apply Dan Kaminsky's vulnerability research expertise - DNS security, infrastructure vulnerabilities, and responsible disclosure
+    type: agent
+    category: security
+    content: agents/security/dan-kaminsky.md
+    aiPlatform: claude-code@2025.06
+
+  - name: katie-moussouris
+    title: Katie Moussouris
+    description: Channel Katie Moussouris's vulnerability management expertise - bug bounty programs, coordinated disclosure, and security policy
+    type: agent
+    category: security
+    content: agents/security/katie-moussouris.md
+    aiPlatform: claude-code@2025.06
+
+  - name: bruce-schneier
+    title: Bruce Schneier
+    description: Apply Bruce Schneier's security analysis expertise - cryptography, privacy, and security economics
+    type: agent
+    category: security
+    content: agents/security/bruce-schneier.md
+    aiPlatform: claude-code@2025.06
+
+  - name: mikko-hypponen
+    title: Mikko Hyppönen
+    description: Channel Mikko Hyppönen's cybersecurity expertise - malware analysis, threat intelligence, and digital privacy advocacy
+    type: agent
+    category: security
+    content: agents/security/mikko-hypponen.md
+    aiPlatform: claude-code@2025.06
+
+  - name: tarah-wheeler
+    title: Tarah Wheeler
+    description: Apply Tarah Wheeler's cybersecurity policy expertise - international cyber norms, inclusive security, and policy integration
+    type: agent
+    category: security
+    content: agents/security/tarah-wheeler.md
+    aiPlatform: claude-code@2025.06
+
+  - name: mudge-zatko
+    title: Mudge Zatko
+    description: Channel Mudge Zatko's security research expertise - vulnerability discovery, security culture transformation, and practical security implementation
+    type: agent
+    category: security
+    content: agents/security/mudge-zatko.md
+    aiPlatform: claude-code@2025.06
+
+  - name: eva-galperin
+    title: Eva Galperin
+    description: Apply Eva Galperin's digital rights expertise - stalkerware research, vulnerable population protection, and accessible security education
+    type: agent
+    category: security
+    content: agents/security/eva-galperin.md
+    aiPlatform: claude-code@2025.06
+
+  - name: moxie-marlinspike
+    title: Moxie Marlinspike
+    description: Channel Moxie Marlinspike's applied cryptography expertise - Signal protocol, usable encryption, and privacy-preserving communication
+    type: agent
+    category: security
+    content: agents/security/moxie-marlinspike.md
+    aiPlatform: claude-code@2025.06
 
 metadata:
   created: "2025-08-17"
   updated: "2025-08-17"
-  total_items: 10
-  description: Intelligent legendary programming wisdom - automatically selects the right experts for your problem
-  architecture: "Simplified intelligent expert selection (implements legendary consensus: Linus + Carmack + Hickey recommendations)"
+  total_items: 66
+  description: Intelligent legendary expert wisdom - main /icon-review command + 7 pod-specific shortcuts + 56 expert agents across all domains
+  architecture: "Hybrid command architecture with intelligent multi-domain analysis and pod-specific shortcuts"
+  pods:
+    programming: "8 legendary programmers (Linus, Carmack, Hickey, Knuth, Kay, Beck, Lamport, Liskov)"
+    data-ai: "8 AI/ML pioneers (Ng, Li, Hinton, Mason, LeCun, Kozyrkov, Patil, Thrun)"
+    product-policy: "8 product/policy leaders (Cagan, Kim, Bryson, Zatlyn, Zhuo, Horowitz, Harris, O'Neil)"
+    business: "8 business strategists (Christensen, Porter, Ries, Jobs, Bezos, Drucker, Hoffman, Musk)"
+    design: "8 design masters (Rams, Norman, Tufte, Ive, Kare, Nielsen, Holmes, Downe)"
+    platform-operations: "8 platform architects (Berners-Lee, Cerf, Perlman, Vogels, Fowler, Gregg, Hightower, Frazelle)"
+    security: "8 security experts (Kaminsky, Moussouris, Schneier, Hyppönen, Wheeler, Zatko, Galperin, Marlinspike)"
   performance: "Parallel execution retained, resource usage optimized through smart expert selection"
   supported_platforms:
     - claude-code
