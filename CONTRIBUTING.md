@@ -107,7 +107,7 @@ Before submitting contributions:
 1. **Installation Testing**
    ```bash
    # Test all installation methods
-   ./install.sh
+   git clone https://github.com/Commands-com/icon-agents.git && cd icon-agents && ./install.sh
    npx icon-agents@latest  # (after publishing)
    curl -fsSL [install-url] | bash
    ```

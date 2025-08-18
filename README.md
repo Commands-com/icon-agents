@@ -9,6 +9,10 @@ Transform your development workflow with 56 legendary experts across 7 domains, 
 ### Installation (Choose One)
 
 ```bash
+# Clone and install (recommended for developers)
+git clone https://github.com/Commands-com/icon-agents.git
+cd icon-agents && ./install.sh
+
 # NPX (if you have Node.js)
 npx icon-agents@latest
 
