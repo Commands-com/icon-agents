@@ -6,6 +6,8 @@ Transform your development workflow with 56 legendary experts across 7 domains, 
 
 ## 🚀 Quick Start
 
+**Important**: Install Icon Agents in your Claude Code project directory (where you run `claude` commands).
+
 ### Installation (Choose One)
 
 ```bash
@@ -200,6 +202,23 @@ The interactive installer will ask you:
 /icon-programming-review
 /icon-security-review
 ```
+
+## 🗑️ Uninstalling
+
+To remove Icon Agents from your project:
+
+```bash
+# Run the uninstall script
+./uninstall.sh
+
+# Or if downloaded separately
+curl -fsSL https://raw.githubusercontent.com/Commands-com/icon-agents/refs/heads/main/uninstall.sh | bash
+```
+
+The uninstall script will:
+- Remove all Icon Agents expert files and commands
+- Offer to clean up empty directories
+- Preserve any other Claude Code configurations
 
 ## 🎯 Key Features
 

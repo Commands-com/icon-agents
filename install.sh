@@ -30,8 +30,10 @@ echo ""
 
 # Prompt for installation directory
 echo -e "${YELLOW}📂 Installation Directory${NC}"
-echo "Where would you like to install Icon Agents?"
-read -p "Enter directory path (or press Enter for current directory): " TARGET_DIR
+echo "Icon Agents must be installed in a Claude Code project directory."
+echo "This should be your project's root directory (where you run Claude Code)."
+echo ""
+read -p "Enter Claude Code project directory path (or press Enter for current directory): " TARGET_DIR
 
 # Set default to current directory if empty
 if [ -z "$TARGET_DIR" ]; then
