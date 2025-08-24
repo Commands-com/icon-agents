@@ -104,7 +104,15 @@ if [ -d "$CLAUDE_DIR/agents" ]; then
         -name "martin-fowler.md" -o \
         -name "brendan-gregg.md" -o \
         -name "kelsey-hightower.md" -o \
-        -name "jessie-frazelle.md" \
+        -name "jessie-frazelle.md" -o \
+        -name "atul-gawande.md" -o \
+        -name "eric-topol.md" -o \
+        -name "regina-barzilay.md" -o \
+        -name "daphne-koller.md" -o \
+        -name "bob-wachter.md" -o \
+        -name "fei-fei-li-healthcare.md" -o \
+        -name "andrew-ng-healthcare.md" -o \
+        -name "vinod-khosla.md" \
         \) 2>/dev/null | wc -l)
 fi
 

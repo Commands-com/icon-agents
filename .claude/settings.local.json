@@ -18,7 +18,13 @@
       "mcp__serena__search_for_pattern",
       "mcp__serena__write_memory",
       "Bash(git add:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(mkdir:*)",
+      "mcp__serena__read_memory",
+      "Bash(git commit:*)",
+      "Bash(npm whoami:*)",
+      "Bash(npm publish:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

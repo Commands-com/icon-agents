@@ -10,7 +10,7 @@ allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(find:
 
 # Icon Review - Legendary Multi-Domain Analysis
 
-Intelligent project and code analysis that automatically selects the most relevant legendary experts across all 7 domains (Programming, Data/AI, Product/Policy, Business, Design, Platform/Operations, Security) based on your codebase and changes.
+Intelligent project and code analysis that automatically selects the most relevant legendary experts across all 8 domains (Programming, Data/AI, Product/Policy, Business, Design, Platform/Operations, Security, Healthcare) based on your codebase and changes.
 
 ## Analysis Process
 
@@ -44,6 +44,7 @@ Based on the analysis, I'll identify relevant domains and suggest expert pods:
 - **Design**: 8 design masters (Rams, Norman, Tufte, Ive, Kare, Nielsen, Holmes, Downe)
 - **Platform & Operations**: 8 infrastructure experts (Berners-Lee, Cerf, Perlman, Vogels, Fowler, Gregg, Hightower, Frazelle)
 - **Security**: 8 security experts (Kaminsky, Moussouris, Schneier, Hyppönen, Wheeler, Zatko, Galperin, Marlinspike)
+- **Healthcare**: 8 healthcare luminaries (Gawande, Topol, Barzilay, Koller, Wachter, Li, Ng, Khosla)
 
 ### 3. **Expert Selection & User Guidance**
 
@@ -57,6 +58,8 @@ After analyzing your project, I'll:
 **Example Selection Logic:**
 - Web application with React → Programming + Design + Security
 - Machine learning project → Programming + Data/AI  
+- Healthcare AI business plan → Healthcare + Business + Data/AI
+- Medical imaging AI → Healthcare + Data/AI + Programming
 - Startup pitch deck → Business + Design + Product/Policy
 - Infrastructure automation → Platform/Operations + Security + Programming
 - API design → Programming + Platform/Operations + Design

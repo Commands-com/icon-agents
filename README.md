@@ -2,7 +2,7 @@
 
 **Legendary programming wisdom at your fingertips**
 
-Transform your development workflow with 56 legendary experts across 7 domains, featuring intelligent multi-domain analysis and direct LLM expert selection.
+Transform your development workflow with 64 legendary experts across 8 domains, featuring intelligent multi-domain analysis and direct LLM expert selection.
 
 ## 🚀 Quick Start
 
@@ -29,9 +29,9 @@ chmod +x install.sh && ./install.sh
 ## 🎯 What You Get
 
 ### **Main Command: Multi-Domain Analysis**
-- **`/icon-review`** - Intelligent analysis that automatically selects experts across all 7 domains
+- **`/icon-review`** - Intelligent analysis that automatically selects experts across all 8 domains
 
-### **Pod-Specific Commands (7 Specialized Reviews)**
+### **Pod-Specific Commands (8 Specialized Reviews)**
 - **`/icon-programming-review`** - Code analysis with 8 legendary programmers
 - **`/icon-security-review`** - Security analysis with 8 security experts  
 - **`/icon-design-review`** - Design analysis with 8 design masters
@@ -39,11 +39,12 @@ chmod +x install.sh && ./install.sh
 - **`/icon-data-ai-review`** - AI/ML analysis with 8 data science pioneers
 - **`/icon-product-policy-review`** - Product analysis with 8 policy experts
 - **`/icon-platform-operations-review`** - Infrastructure analysis with 8 platform architects
+- **`/icon-healthcare-review`** - Healthcare AI business analysis with 8 healthcare luminaries
 
-### **Individual Expert Agents (56 Total)**
+### **Individual Expert Agents (64 Total)**
 All experts are available as individual Task agents for direct consultation.
 
-## 🏗️ Architecture: 7 Pods of Excellence
+## 🏗️ Architecture: 8 Pods of Excellence
 
 ### **Programming Pod** (8 Experts)
 - **Linus Torvalds** - Engineering taste, systems programming, pragmatic design
@@ -115,6 +116,16 @@ All experts are available as individual Task agents for direct consultation.
 - **Kelsey Hightower** - Cloud native, Kubernetes mastery
 - **Jessie Frazelle** - Systems security, container security
 
+### **Healthcare Pod** (8 Experts)
+- **Atul Gawande** - Healthcare systems optimization, patient safety, clinical implementation
+- **Eric Topol** - Digital medicine, AI in healthcare, personalized medicine
+- **Regina Barzilay** - AI for drug discovery, medical imaging AI, clinical decision support
+- **Daphne Koller** - Precision medicine, computational biology, AI-driven drug discovery
+- **Bob Wachter** - Digital health transformation, clinical informatics, healthcare IT
+- **Fei-Fei Li** - Medical imaging AI, ambient intelligence in healthcare, ethical AI
+- **Andrew Ng** - Healthcare AI deployment, scalable medical AI, clinical implementation
+- **Vinod Khosla** - Healthcare venture capital, digital health business models, innovation scaling
+
 ## 🧠 How It Works
 
 ### **Intelligent Expert Selection**
@@ -172,11 +183,11 @@ Task(rich-hickey): "Evaluate this architecture for simplicity"
 
 The interactive installer will ask you:
 - **Installation directory** (current directory by default)
-- **Which pods to install** (all 7 pods or specific ones)
+- **Which pods to install** (all 8 pods or specific ones)
 - **Confirmation** before proceeding
 
 ### **Pod Selection**
-- **`all`** - Install all 7 pods (56 experts) 
+- **`all`** - Install all 8 pods (64 experts) 
 - **Individual pods** - Choose specific domains:
   - `programming` - 8 legendary programmers
   - `security` - 8 security experts  
@@ -185,6 +196,7 @@ The interactive installer will ask you:
   - `data-ai` - 8 AI/ML pioneers
   - `product-policy` - 8 product/policy experts
   - `platform-operations` - 8 platform architects
+  - `healthcare` - 8 healthcare luminaries
 
 ## 🚀 After Installation
 

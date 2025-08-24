@@ -28,7 +28,7 @@ commands:
         type: select
         required: false
         defaultValue: "auto"
-        options: ["auto", "programming", "security", "design", "business", "data-ai", "product-policy", "platform-operations", "all"]
+        options: ["auto", "programming", "security", "design", "business", "data-ai", "product-policy", "platform-operations", "healthcare", "all"]
 
   # Pod-Specific Commands
 
@@ -114,6 +114,15 @@ commands:
     commandName: "/icon-platform-operations-review"
     aiPlatform: "claude-code@2025.06"
     content: commands/platform-operations/icon-platform-operations-review.md
+
+  - name: icon-healthcare-review
+    title: Icon Healthcare Review
+    description: Intelligent healthcare AI business analysis that automatically selects the most relevant healthcare luminaries
+    type: command
+    category: healthcare
+    commandName: "/icon-healthcare-review"
+    aiPlatform: "claude-code@2025.06"
+    content: commands/healthcare/icon-healthcare-review.md
 
   # Icon Agents - All 7 Pods (56 Legendary Experts)
 
@@ -572,11 +581,76 @@ commands:
     content: agents/platform-operations/jessie-frazelle.md
     aiPlatform: claude-code@2025.06
 
+  # Healthcare Pod (8 experts)
+  - name: atul-gawande
+    title: Atul Gawande
+    description: Apply Atul Gawande's healthcare systems expertise - quality improvement, patient safety, clinical implementation, and evidence-based practice
+    type: agent
+    category: healthcare
+    content: agents/healthcare/atul-gawande.md
+    aiPlatform: claude-code@2025.06
+
+  - name: eric-topol
+    title: Eric Topol
+    description: Channel Eric Topol's digital medicine expertise - AI in healthcare, genomics, personalized medicine, and medical innovation
+    type: agent
+    category: healthcare
+    content: agents/healthcare/eric-topol.md
+    aiPlatform: claude-code@2025.06
+
+  - name: regina-barzilay
+    title: Regina Barzilay
+    description: Apply Regina Barzilay's medical AI expertise - healthcare machine learning, clinical decision support, and medical data analysis
+    type: agent
+    category: healthcare
+    content: agents/healthcare/regina-barzilay.md
+    aiPlatform: claude-code@2025.06
+
+  - name: daphne-koller
+    title: Daphne Koller
+    description: Channel Daphne Koller's precision medicine expertise - computational biology, drug discovery AI, and personalized healthcare
+    type: agent
+    category: healthcare
+    content: agents/healthcare/daphne-koller.md
+    aiPlatform: claude-code@2025.06
+
+  - name: bob-wachter
+    title: Bob Wachter
+    description: Apply Bob Wachter's digital health expertise - clinical informatics, healthcare IT, and medical technology implementation
+    type: agent
+    category: healthcare
+    content: agents/healthcare/bob-wachter.md
+    aiPlatform: claude-code@2025.06
+
+  - name: fei-fei-li-healthcare
+    title: Fei-Fei Li (Healthcare)
+    description: Channel Fei-Fei Li's healthcare AI expertise - medical imaging AI, ambient intelligence, and ethical healthcare technology
+    type: agent
+    category: healthcare
+    content: agents/healthcare/fei-fei-li-healthcare.md
+    aiPlatform: claude-code@2025.06
+
+  - name: andrew-ng-healthcare
+    title: Andrew Ng (Healthcare)
+    description: Apply Andrew Ng's healthcare AI deployment expertise - scalable medical AI, clinical implementation, and practical healthcare solutions
+    type: agent
+    category: healthcare
+    content: agents/healthcare/andrew-ng-healthcare.md
+    aiPlatform: claude-code@2025.06
+
+  - name: vinod-khosla
+    title: Vinod Khosla
+    description: Channel Vinod Khosla's healthcare venture expertise - digital health investment, healthcare business models, and medical innovation scaling
+    type: agent
+    category: healthcare
+    content: agents/healthcare/vinod-khosla.md
+    aiPlatform: claude-code@2025.06
+
 metadata:
   created: "2025-08-17"
-  updated: "2025-08-17"
-  total_items: 64
-  description: Intelligent legendary expert wisdom - main /icon-review command + 7 pod-specific shortcuts + 56 expert agents across all domains
+  updated: "2025-08-20"
+  total_items: 73
+  description: Intelligent legendary expert wisdom - main /icon-review command + 8 pod-specific shortcuts + 64 expert agents across all domains
   architecture: "Hybrid command architecture with intelligent multi-domain analysis and pod-specific shortcuts"
   pods:
     programming: "8 legendary programmers (Linus, Carmack, Hickey, Knuth, Eich, Beck, Lamport, Liskov)"
@@ -586,6 +660,7 @@ metadata:
     data-ai: "8 AI/ML pioneers (Ng, Li, Hinton, Mason, LeCun, Kozyrkov, Patil, Hassabis)"
     product-policy: "8 product/policy leaders (Cagan, Kim, Bryson, Zatlyn, Zhuo, Horowitz, Harris, O'Neil)"
     platform-operations: "8 platform architects (Berners-Lee, Cerf, Perlman, Vogels, Fowler, Gregg, Hightower, Frazelle)"
+    healthcare: "8 healthcare luminaries (Gawande, Topol, Barzilay, Koller, Wachter, Li, Ng, Khosla)"
   performance: "Parallel execution retained, resource usage optimized through smart expert selection"
   supported_platforms:
     - claude-code
