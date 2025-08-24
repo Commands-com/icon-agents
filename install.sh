@@ -21,30 +21,109 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 # Available pods
-AVAILABLE_PODS=("programming" "data-ai" "product-policy" "business" "design" "platform-operations" "security")
+AVAILABLE_PODS=("programming" "data-ai" "product-policy" "business" "design" "platform-operations" "security" "healthcare")
 PLANNED_PODS=()
 
 echo -e "${CYAN}🏗️  Icon Agents Pod Installer${NC}"
 echo -e "${BLUE}================================${NC}"
 echo ""
 
-# Prompt for installation directory
-echo -e "${YELLOW}📂 Installation Directory${NC}"
-echo "Icon Agents must be installed in a Claude Code project directory."
-echo "This should be your project's root directory (where you run Claude Code)."
-echo ""
-read -p "Enter Claude Code project directory path (or press Enter for current directory): " TARGET_DIR
+# Function to detect if we're in a Claude Code project
+detect_claude_project() {
+    if [ -f ".claude/settings.json" ] || [ -f ".claude/settings.local.json" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
 
-# Set default to current directory if empty
-if [ -z "$TARGET_DIR" ]; then
-    TARGET_DIR="."
+# Prompt for installation directory with better guidance
+echo -e "${YELLOW}📂 Installation Directory${NC}"
+echo "Icon Agents can be installed in multiple locations:"
+echo ""
+echo -e "${GREEN}1. Claude Code Project Directory${NC} (Recommended for project-specific use)"
+echo "   • Install in your current project's root directory"
+echo "   • Includes all commands including /icon-review"
+echo "   • Best for team projects and specific codebases"
+echo ""
+echo -e "${GREEN}2. Global Installation${NC} (~/.claude)"
+echo "   • Available across all your Claude Code projects"
+echo "   • Includes all commands including /icon-review"
+echo "   • Best for personal use across multiple projects"
+echo ""
+echo -e "${GREEN}3. Current Directory${NC} (if already in correct location)"
+echo "   • Uses current directory if it's a Claude Code project"
+echo ""
+
+# Detect current environment
+if detect_claude_project; then
+    CURRENT_IS_PROJECT=true
+    echo -e "${CYAN}✓ Current directory appears to be a Claude Code project${NC}"
+    DEFAULT_OPTION="current"
+else
+    CURRENT_IS_PROJECT=false
+    DEFAULT_OPTION="global"
 fi
+
+echo ""
+echo "Installation options:"
+echo "  current     - Use current directory (if Claude Code project)"
+echo "  global      - Install globally (~/.claude)"
+echo "  /path/to/project - Specify custom Claude Code project path"
+echo "  quit        - Exit without installing"
+echo ""
+
+if [ "$CURRENT_IS_PROJECT" = true ]; then
+    read -p "Where would you like to install? [current/global/path/quit] (default: current): " INSTALL_LOCATION
+else
+    read -p "Where would you like to install? [global/path/quit] (default: global): " INSTALL_LOCATION
+fi
+
+# Handle installation location
+case $INSTALL_LOCATION in
+    "current"|"")
+        if [ "$CURRENT_IS_PROJECT" = true ] && [ "$DEFAULT_OPTION" = "current" ]; then
+            TARGET_DIR="."
+            INSTALL_TYPE="project"
+        elif [ "$DEFAULT_OPTION" = "global" ]; then
+            TARGET_DIR="$HOME"
+            INSTALL_TYPE="global"
+        else
+            echo -e "${RED}✗ Current directory is not a Claude Code project${NC}"
+            exit 1
+        fi
+        ;;
+    "global")
+        TARGET_DIR="$HOME"
+        INSTALL_TYPE="global"
+        ;;
+    "quit"|"QUIT"|"q"|"Q")
+        echo -e "${YELLOW}Installation cancelled${NC}"
+        exit 0
+        ;;
+    *)
+        if [ -d "$INSTALL_LOCATION" ]; then
+            cd "$INSTALL_LOCATION"
+            if detect_claude_project; then
+                TARGET_DIR="$INSTALL_LOCATION"
+                INSTALL_TYPE="project"
+            else
+                echo -e "${RED}✗ Specified directory is not a Claude Code project${NC}"
+                exit 1
+            fi
+        else
+            echo -e "${RED}✗ Directory does not exist: $INSTALL_LOCATION${NC}"
+            exit 1
+        fi
+        ;;
+esac
 
 # Resolve full path
 TARGET_DIR=$(realpath "$TARGET_DIR")
 CLAUDE_DIR="$TARGET_DIR/.claude"
 
 echo -e "${BLUE}📍 Installing to: $CLAUDE_DIR${NC}"
+echo -e "${BLUE}📍 Installation type: $INSTALL_TYPE${NC}"
 echo ""
 
 # Pod selection
@@ -77,6 +156,9 @@ for i in "${!AVAILABLE_PODS[@]}"; do
         "security")
             description="8 security experts (Kaminsky, Moussouris, Schneier, Hyppönen, Wheeler, Zatko, Galperin, Marlinspike)"
             ;;
+        "healthcare")
+            description="8 healthcare luminaries (Gawande, Topol, Barzilay, Koller, Wachter, Li, Ng, Khosla)"
+            ;;
         *)
             description="Unknown pod"
             ;;
@@ -87,12 +169,12 @@ done
 echo ""
 echo "Installation options:"
 echo "  all         - Install all available pods"
-echo "  1-7         - Install specific pod by number"
+echo "  1-8         - Install specific pod by number"
 echo "  1,3,5       - Install multiple pods by numbers (comma-separated)"
 echo "  quit        - Exit without installing"
 echo ""
 
-read -p "What would you like to install? [all/1-7/1,3,5/quit] (default: all): " SELECTION
+read -p "What would you like to install? [all/1-8/1,3,5/quit] (default: all): " SELECTION
 
 case $SELECTION in
     "all"|"ALL"|"")
@@ -109,11 +191,11 @@ case $SELECTION in
         IFS=',' read -ra NUMBERS <<< "$SELECTION"
         for num in "${NUMBERS[@]}"; do
             num=$(echo "$num" | tr -d ' ') # Remove spaces
-            if [[ "$num" =~ ^[1-7]$ ]]; then
+            if [[ "$num" =~ ^[1-8]$ ]]; then
                 pod_index=$((num-1))
                 SELECTED_PODS+=("${AVAILABLE_PODS[$pod_index]}")
             else
-                echo -e "${RED}✗ Invalid pod number: $num (must be 1-7)${NC}"
+                echo -e "${RED}✗ Invalid pod number: $num (must be 1-8)${NC}"
                 exit 1
             fi
         done
@@ -156,21 +238,34 @@ echo -e "${BLUE}📁 Creating directories...${NC}"
 mkdir -p "$CLAUDE_DIR/agents"
 mkdir -p "$CLAUDE_DIR/commands"
 
-# Install main command
-echo -e "${YELLOW}📦 Installing main command...${NC}"
-if [ "$INSTALL_MODE" = "local" ]; then
-    if [ -f "commands/icon-review.md" ]; then
-        cp "commands/icon-review.md" "$CLAUDE_DIR/commands/icon-review.md"
-        echo -e "${GREEN}  ✓ Installed main command: icon-review.md${NC}"
+# Determine if we should install the main command
+# Skip main command for individual pod installations (not "all")
+INSTALL_MAIN_COMMAND=true
+if [ ${#SELECTED_PODS[@]} -lt ${#AVAILABLE_PODS[@]} ]; then
+    INSTALL_MAIN_COMMAND=false
+    echo -e "${BLUE}ℹ️  Installing individual pods - skipping main /icon-review command${NC}"
+    echo -e "${BLUE}   Use pod-specific commands like /icon-$pod-review instead${NC}"
+fi
+
+# Install main command (only for full installations)
+if [ "$INSTALL_MAIN_COMMAND" = true ]; then
+    echo -e "${YELLOW}📦 Installing main command...${NC}"
+    if [ "$INSTALL_MODE" = "local" ]; then
+        if [ -f "commands/icon-review.md" ]; then
+            cp "commands/icon-review.md" "$CLAUDE_DIR/commands/icon-review.md"
+            echo -e "${GREEN}  ✓ Installed main command: icon-review.md${NC}"
+        else
+            echo -e "${RED}  ✗ commands/icon-review.md not found${NC}"
+        fi
     else
-        echo -e "${RED}  ✗ commands/icon-review.md not found${NC}"
+        if download_file "commands/icon-review.md" "$CLAUDE_DIR/commands/icon-review.md"; then
+            echo -e "${GREEN}  ✓ Downloaded main command: icon-review.md${NC}"
+        else
+            echo -e "${RED}  ✗ Failed to download main command${NC}"
+        fi
     fi
 else
-    if download_file "commands/icon-review.md" "$CLAUDE_DIR/commands/icon-review.md"; then
-        echo -e "${GREEN}  ✓ Downloaded main command: icon-review.md${NC}"
-    else
-        echo -e "${RED}  ✗ Failed to download main command${NC}"
-    fi
+    echo -e "${YELLOW}📦 Skipping main command (individual pod installation)${NC}"
 fi
 
 # Function to get agent list for a pod from GitHub API
@@ -261,9 +356,14 @@ echo ""
 echo -e "${GREEN}🎉 Installation complete!${NC}"
 echo -e "${BLUE}📊 Installation Summary:${NC}"
 echo -e "  📂 Installation location: $CLAUDE_DIR"
+echo -e "  📍 Installation type: $INSTALL_TYPE"
 echo -e "  🤖 Agents: $CLAUDE_DIR/agents/"
 echo -e "  ⚡ Commands: $CLAUDE_DIR/commands/"
-echo -e "  📄 Config: $CLAUDE_DIR/commands.yaml"
+if [ "$INSTALL_MAIN_COMMAND" = true ]; then
+    echo -e "  📄 Main command: /icon-review (multi-domain analysis)"
+else
+    echo -e "  📄 Pod-specific commands only (no main /icon-review command)"
+fi
 echo ""
 
 # Show installed pods
@@ -277,11 +377,56 @@ done
 echo ""
 echo -e "${YELLOW}💡 Next steps:${NC}"
 echo "1. Restart Claude Code to load the new agents and commands"
-echo "2. Use /icon-review for multi-domain analysis or pod-specific shortcuts:"
-echo "   • /icon-programming-review - Code analysis with 8 legendary programmers"
-echo "   • /icon-security-review - Security analysis with 8 security experts"
-echo "   • /icon-design-review - Design analysis with 8 design masters"
-echo "   • And more pod-specific commands for your installed pods"
-echo "3. All 56 expert agents are now available as individual Task agents"
+
+if [ "$INSTALL_MAIN_COMMAND" = true ]; then
+    echo "2. Use /icon-review for intelligent multi-domain analysis"
+    echo "   • Automatically selects the most relevant experts across all domains"
+    echo "   • Also available: pod-specific shortcuts for focused analysis:"
+else
+    echo "2. Use pod-specific commands for focused analysis:"
+fi
+
+# Show available pod commands for installed pods
+for pod in "${SELECTED_PODS[@]}"; do
+    case "$pod" in
+        "programming")
+            echo "   • /icon-programming-review - Code analysis with 8 legendary programmers"
+            ;;
+        "security")
+            echo "   • /icon-security-review - Security analysis with 8 security experts"
+            ;;
+        "design")
+            echo "   • /icon-design-review - Design analysis with 8 design masters"
+            ;;
+        "business")
+            echo "   • /icon-business-review - Strategy analysis with 8 business leaders"
+            ;;
+        "data-ai")
+            echo "   • /icon-data-ai-review - AI/ML analysis with 8 data science pioneers"
+            ;;
+        "product-policy")
+            echo "   • /icon-product-policy-review - Product analysis with 8 policy experts"
+            ;;
+        "platform-operations")
+            echo "   • /icon-platform-operations-review - Infrastructure analysis with 8 platform experts"
+            ;;
+        "healthcare")
+            echo "   • /icon-healthcare-review - Healthcare AI analysis with 8 medical luminaries"
+            ;;
+    esac
+done
+
+# Calculate total agents
+total_agents=0
+for pod in "${SELECTED_PODS[@]}"; do
+    total_agents=$((total_agents + 8))  # Each pod has 8 agents
+done
+
+echo "3. All $total_agents expert agents are now available as individual Task agents"
 echo ""
-echo -e "${CYAN}Happy coding with legendary wisdom across all domains! 🚀${NC}"
+
+if [ "$INSTALL_MAIN_COMMAND" = true ]; then
+    echo -e "${CYAN}Happy coding with legendary wisdom across all domains! 🚀${NC}"
+else
+    echo -e "${CYAN}Happy coding with legendary ${SELECTED_PODS[*]} expertise! 🚀${NC}"
+fi
