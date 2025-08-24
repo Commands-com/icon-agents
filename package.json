@@ -1,7 +1,7 @@
 {
   "name": "icon-agents",
-  "version": "1.1.0",
-  "description": "Legendary programming wisdom at your fingertips - 56 expert agents across 7 domains for Claude Code",
+  "version": "1.2.0",
+  "description": "Legendary programming wisdom at your fingertips - 64 expert agents across 8 domains for Claude Code",
   "main": "cli.js",
   "bin": {
     "icon-agents": "cli.js"
@@ -20,10 +20,17 @@
     "code-review",
     "programming",
     "expert-systems",
+    "healthcare-ai",
+    "medical-ai",
+    "digital-health",
+    "clinical-ai",
     "linus-torvalds",
     "john-carmack",
     "rich-hickey",
+    "atul-gawande",
+    "eric-topol",
     "legendary-programmers",
+    "healthcare-experts",
     "intelligent-analysis"
   ],
   "author": "Icon Agents",
